@@ -56,16 +56,43 @@ public class Ex1 {
 	 * @return an array of doubles representing the coefficients of the polynom.
 	 */
 	public static double[] PolynomFromPoints(double[] xx, double[] yy) {
-		double [] ans = null;
+		double[] ans = null;
 		int lx = xx.length;
 		int ly = yy.length;
-		if(xx!=null && yy!=null && lx==ly && lx>1 && lx<4) {
-		/** add you code below
+		if (xx != null && yy != null && lx == ly && lx > 1 && lx < 4) {
 
-		/////////////////// */
+			if (lx == 2) {
+				double x1 = xx[0], y1 = yy[0];
+				double x2 = xx[1], y2 = yy[1];
+
+				double a = (y2 - y1) / (x2 - x1);
+				double b = y1 - a * x1;
+				ans = new double[]{b, a};
+			}
+			else if (lx == 3) {
+				double x1 = xx[0], y1 = yy[0];
+				double x2 = xx[1], y2 = yy[1];
+				double x3 = xx[2], y3 = yy[2];
+
+				double denom = (x1 - x2) * (x1 - x3) * (x2 - x3);
+
+				double a = ((y1 * (x2 - x3)) + (y2 * (x3 - x1)) + (y3 * (x1 - x2))) / denom;
+
+				double bnum = (y1 * (Math.pow(x3, 2) - Math.pow(x2, 2))) +
+						(y2 * (Math.pow(x1, 2) - Math.pow(x3, 2))) +
+						(y3 * (Math.pow(x2, 2) - Math.pow(x1, 2)));
+				double b = bnum / denom;
+
+				double c = ((y1 * (x2 * x3 * (x2 - x3))) +
+						(y2 * (x3 * x1 * (x3 - x1))) +
+						(y3 * (x1 * x2 * (x1 - x2)))) / denom;
+
+				ans = new double[]{c, b, a};
+			}
 		}
 		return ans;
 	}
+
 	/** Two polynomials functions are equal if and only if they have the same values f(x) for n+1 values of x,
 	 * where n is the max degree (over p1, p2) - up to an epsilon (aka EPS) value.
 	 * @param p1 first polynomial function
