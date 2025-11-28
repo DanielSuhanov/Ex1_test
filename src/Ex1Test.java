@@ -194,11 +194,21 @@ class Ex1Test {
 	 * Test the area function.
 	 */
 	public void testArea3() {
-		double[] po_a = {2,1,-0.7, -0.02,0.02};
+		double[] po_a = {2, 1, -0.7, -0.02, 0.02};
 		double[] po_b = {6, 0.1, -0.2};
-		double x1 = Ex1.sameValue(po_a,po_b, -10,-5, Ex1.EPS);
-		double a1 = Ex1.area(po_a,po_b, x1, 6, 8);
+		double x1 = Ex1.sameValue(po_a, po_b, -10, -5, Ex1.EPS);
+		double a1 = Ex1.area(po_a, po_b, x1, 6, 8);
 		double area = 58.5658;
-		assertEquals(a1,area, Ex1.EPS);
+		assertEquals(a1, area, Ex1.EPS);
 	}
-}
+		@Test
+		/**
+		 * Basic test for poly()
+		 */
+        void testPolyBasic() {
+			double[] p = {2, 0, 3.1, -1.2};
+			String s = Ex1.poly(p);
+			assertEquals("-1.2x^3 +3.1x^2 +2.0", s);
+		}
+	}
+

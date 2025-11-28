@@ -132,7 +132,7 @@ public class Ex1 {
 			boolean first = true;
 			for (int i = poly.length - 1; i >= 0; i--) {
 				double coef = poly[i];
-				if (Math.abs(coef) > EPS) continue;
+				if (Math.abs(coef) < EPS) continue;
 				if (first) {
 					if (coef < 0) ans += "-";
 					first = false;
@@ -141,13 +141,13 @@ public class Ex1 {
 					else ans += " +";
 				}
 				double absCoef = Math.abs(coef);
-				if (i == 1) {
+				if (i == 0) {
 					ans += absCoef;
 				} else if (i == 1) {
 					ans += absCoef + "x";
 				}
 				else{
-					ans += coef + "x^" + i;
+					ans += absCoef + "x^" + i;
 				}
 			}
 			if (first) ans = "0";
