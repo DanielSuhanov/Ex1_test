@@ -8,7 +8,7 @@
  * This is the main Class you should implement (see "add your code below")
  *
  * @author boaz.benmoshe
-
+* ID: 207636481
  */
 public class Ex1 {
 	/** Epsilon value for numerical computation, it serves as a "close enough" threshold. */
@@ -129,9 +129,28 @@ public class Ex1 {
 		String ans = "";
 		if(poly.length==0) {ans="0";}
 		else {
-            /** add you code below
-
-             /////////////////// */
+			boolean first = true;
+			for (int i = poly.length - 1; i >= 0; i--) {
+				double coef = poly[i];
+				if (Math.abs(coef) > EPS) continue;
+				if (first) {
+					if (coef < 0) ans += "-";
+					first = false;
+				} else {
+					if (coef < 0) ans += " -";
+					else ans += " +";
+				}
+				double absCoef = Math.abs(coef);
+				if (i == 1) {
+					ans += absCoef;
+				} else if (i == 1) {
+					ans += absCoef + "x";
+				}
+				else{
+					ans += coef + "x^" + i;
+				}
+			}
+			if (first) ans = "0";
 		}
 		return ans;
 	}
