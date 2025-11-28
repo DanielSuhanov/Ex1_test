@@ -109,6 +109,13 @@ public class Ex1 {
 				d1 = i;
 			}
 		}
+		int d2 = -1;
+		for (int i = p2.length - 1; i >= 0; i--) {
+			if (Math.abs(p2[i]) > EPS && d2 == -1) {
+				d2 = i;
+			}
+		}
+
 		return ans;
 	}
 
