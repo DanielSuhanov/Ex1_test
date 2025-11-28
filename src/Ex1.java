@@ -202,9 +202,22 @@ public class Ex1 {
 	 */
 	public static double length(double[] p, double x1, double x2, int numberOfSegments) {
 		double ans = x1;
-        /** add you code below
+		ans = 0;
+		double dx = (x2 - x1) / numberOfSegments;
+		double prevX = x1;
+		double prevY = f(p, prevX);
 
-         /////////////////// */
+		for (int i = 1; i <= numberOfSegments; i++) {
+			double currX = x1 + i * dx;
+			double currY = f(p, currX);
+			double diffX = currX - prevX;
+			double diffY = currY - prevY;
+
+			double segmentLength = Math.sqrt(diffX * diffX + diffY * diffY);
+			ans += segmentLength;
+			prevX = currX;
+			prevY = currY;
+		}
 		return ans;
 	}
 	
