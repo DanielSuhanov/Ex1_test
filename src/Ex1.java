@@ -234,19 +234,20 @@ public class Ex1 {
 	 */
 	public static double area(double[] p1,double[]p2, double x1, double x2, int numberOfTrapezoid) {
 		double ans = 0;
-		double dx = (x2 - x1) / numberOfTrapezoid;
-		for (int i = 0; i < numberOfTrapezoid; i++) {
-			double xa = x1 + i * dx;
-			double xb = xa + dx;
 
-			double difA = f(p1, xa) - f(p2, xa);
-			double difB = f(p1, xb) - f(p2, xb);
+		int n = Math.max(numberOfTrapezoid * 10, 100);
 
-			double hA = Math.abs(difA);
-			double hB = Math.abs(difB);
+		double dx = (x2 - x1) / n;
+		double prevX = x1;
+		double prevY = Math.abs(f(p1, prevX) - f(p2, prevX));
+		for (int i = 0; i < n; i++) {
+			double currX = x1 + i * dx;
+			double currY = Math.abs(f(p1, currX) - f(p2, currX));
 
-			double trapezoidArea = (hA + hB) * dx / 2.0;
+			double trapezoidArea = (prevY + currY) * dx / 2.0;
 			ans += trapezoidArea;
+
+			prevY = currY;
 		}
 		return ans;
 	}
