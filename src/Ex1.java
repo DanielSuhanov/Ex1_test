@@ -234,9 +234,20 @@ public class Ex1 {
 	 */
 	public static double area(double[] p1,double[]p2, double x1, double x2, int numberOfTrapezoid) {
 		double ans = 0;
-        /** add you code below
+		double dx = (x2 - x1) / numberOfTrapezoid;
+		for (int i = 0; i < numberOfTrapezoid; i++) {
+			double xa = x1 + i * dx;
+			double xb = xa + dx;
 
-         /////////////////// */
+			double difA = f(p1, xa) - f(p2, xa);
+			double difB = f(p1, xb) - f(p2, xb);
+
+			double hA = Math.abs(difA);
+			double hB = Math.abs(difB);
+
+			double trapezoidArea = (hA + hB) * dx / 2.0;
+			ans += trapezoidArea;
+		}
 		return ans;
 	}
 	/**
