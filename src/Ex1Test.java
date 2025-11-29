@@ -240,5 +240,23 @@ class Ex1Test {
 		double y2 = Ex1.f(p2,x);
 		assertEquals(y1, y2, 0.01);
 	}
+
+	@Test
+	void testPolynomFromPoints_Linear() {
+		double[] xx = {0, 2};
+		double[] yy = {1, 5};
+		double [] p = Ex1.PolynomFromPoints(xx,yy);
+		double[] expected = {1, 2};
+		assertTrue(Ex1.equals(p, expected));
+	}
+
+	@Test
+	void testPolynomFromPoints_Quadratic() {
+		double[] xx = {0, 1, 2};
+		double[] yy = {0, 1, 4};
+		double [] p = Ex1.PolynomFromPoints(xx,yy);
+		double[] expected = {0, 0, 1};
+		assertTrue(Ex1.equals(p, expected));
+	}
 }
 
