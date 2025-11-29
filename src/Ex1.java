@@ -334,10 +334,12 @@ public class Ex1 {
 	 * @return
 	 */
 	public static double[] add(double[] p1, double[] p2) {
-		double[] ans = ZERO; //
-
+		if (p1 == null)
+			p1 = ZERO;
+		if (p2 == null)
+			p2 = ZERO;
 		int max = Math.max(p1.length, p2.length);
-		ans = new double[max];
+		double[] ans = new double[max];
 
 		for (int i = 0; i < max; i++) {
 			double c1 = (i < p1.length) ? p1[i] : 0;
@@ -346,13 +348,17 @@ public class Ex1 {
 		}
 
 		int last = ans.length - 1;
-		while (last > 0 && Math.abs(ans[last]) > EPS) {
+		while (last > 0 && Math.abs(ans[last]) < EPS) {
 			last--;
 		}
-		double[] trimmed = new double[last + 1];
-		for (int i = 0; i <= last; i++) {
-			trimmed[i] = ans[i];
+		if (last == 0 && Math.abs(ans[0]) < EPS) {
+			last--;
 		}
+		if (last == ans.length - 1) {
+			return ans;
+		}
+		double[] trimmed = new double[last + 1];
+		System.arraycopy(ans, 0, trimmed, 0, last + 1);
 		return trimmed;
 	}
 
