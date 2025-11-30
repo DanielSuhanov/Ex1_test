@@ -262,25 +262,40 @@ public class Ex1 {
 	 * @return the approximated area between the two polynomial functions within the [x1,x2] range.
 	 */
 	public static double area(double[] p1, double[] p2, double x1, double x2, int numberOfTrapezoid) {
+		if (numberOfTrapezoid <= 0 || x1 == x2) {
+			return 0;
+		}
 		double ans = 0;
+		double dx = (x2 - x1) / numberOfTrapezoid;
 
-		int n = Math.max(numberOfTrapezoid * 10, 100);
+		for (int i = 0; i < numberOfTrapezoid; i++) {
+			double xa = x1 + i * dx;
+			double xb = xa + dx;
 
-		double dx = (x2 - x1) / n;
-		double prevX = x1;
-		double prevY = Math.abs(f(p1, prevX) - f(p2, prevX));
-		for (int i = 0; i < n; i++) {
-			double currX = x1 + i * dx;
-			double currY = Math.abs(f(p1, currX) - f(p2, currX));
+			double ya = f(p1, xa) - f(p2, xa);
+			double yb = f(p1, xb) - f(p2, xb);
 
-			double trapezoidArea = (prevY + currY) * dx / 2.0;
-			ans += trapezoidArea;
+			if (Math.abs(ya) < EPS && Math.abs(yb) < EPS) {
+				continue;
+			}
+			if (ya * yb >= 0) {
+				double trap = (Math.abs(ya) + Math.abs(yb)) * dx / 2.0;
+				ans += trap;
+			}
+			else {
+				double xm = sameValue(p1, p2, xa, xb, EPS);
 
-			prevY = currY;
+				double leftWidth = xm - xa;
+				double rightWidth = xb - xm;
+
+				double leftArea = Math.abs(ya) * leftWidth / 2.0;
+				double rightArea = Math.abs(yb) * rightWidth / 2.0;
+
+				ans += leftArea + rightArea;
+			}
 		}
 		return ans;
 	}
-
 	/**
 	 * This function computes the array representation of a polynomial function from a String
 	 * representation. Note:given a polynomial function represented as a double array,
